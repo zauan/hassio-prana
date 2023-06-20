@@ -1,0 +1,35 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "data": {
+                    "mac": "Bluetooth MAC address",
+                    "name": "Name"
+                },
+                "title": "Pick a Prana device."
+            },
+            "validate": {
+                "data": {
+                    "retry": "Retry validate connection?",
+                    "flicker": "Did the prana device turned on and off?"
+                },
+                "title": "Validate Prana connection"
+            },
+            "manual": {
+                "data": {
+                    "mac": "Bluetooth MAC address",
+                    "name": "Name"
+                },
+                "title": "Enter bluetooth MAC address"
+            }
+        },
+        "error": {
+            "connect": "Unable to connect to Prana device"
+        },
+        "abort": {
+            "cannot_validate": "Unable to validate Prana device",
+            "cannot_connect": "Unable to connect to Prana device"
+        }
+    },
+    "title": "Prana"
+}
