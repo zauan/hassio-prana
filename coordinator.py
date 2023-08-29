@@ -149,6 +149,9 @@ class PranaCoordinator(DataUpdateCoordinator):
         self.lastRead = None
         self.co2 = None
         self.voc = None
+        self.air_in = None
+        self.isAirInOn = None
+        self.isAirOutOn = None
 
     async def _async_update_data(self):
         """Fetch data from device."""
@@ -169,12 +172,12 @@ class PranaCoordinator(DataUpdateCoordinator):
         return await self._write_while_connected(data, await_response)
 
     async def _write_while_connected(self, data: bytearray, await_response: bool = False):
-        LOGGER.error("Before command")
+        LOGGER.debug("Before command")
         await self._client.write_gatt_char(self._write_uuid, data, await_response)
 
         # Update the info after each command
         if(self.Cmd.READ_STATE != data):
-            LOGGER.error("Before read state")
+            LOGGER.debug("Before read state")
             return await self._client.write_gatt_char(self._write_uuid, self.Cmd.READ_STATE, True)
 
     @property

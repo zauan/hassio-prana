@@ -37,16 +37,17 @@ SPEED_RANGE = (1, 10)
 async def async_setup_entry(hass, config_entry, async_add_devices):
     coordinator = hass.data[DOMAIN][config_entry.entry_id]
 
-    async_add_devices([PranaFan(coordinator, config_entry.data["name"], config_entry.entry_id)])
+    async_add_devices([PranaFan(coordinator, config_entry)])
 
 class PranaFan(CoordinatorEntity, FanEntity):
     """Representation of a Prana fan."""
-    def __init__(self, coordinator, name: str, entry_id: str):
+    def __init__(self, coordinator, config_entry):
         """Initialize the sensor."""
-        super().__init__(coordinator)
+        super().__init__(coordinator, config_entry)
         self.coordinator = coordinator
-        self._name = name
-        self._entry_id = entry_id
+        self._name = config_entry.data["name"]
+        LOGGER.debug('entry id : %s', config_entry.entry_id)
+        self._entry_id = f"{config_entry.entry_id}_fan"
 
     @callback
     def _handle_coordinator_update(self) -> None:
@@ -104,8 +105,7 @@ class PranaFan(CoordinatorEntity, FanEntity):
                 (DOMAIN, self.coordinator.mac)
             },
             name=self.name,
-            connections={(device_registry.CONNECTION_NETWORK_MAC, self.coordinator.mac)},
-            config_entry_id=self._entry_id
+            connections={(device_registry.CONNECTION_NETWORK_MAC, self.coordinator.mac)}
         )
 
     @property

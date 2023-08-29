@@ -24,7 +24,7 @@
             }
         },
         "error": {
-            "connect": "Unable to connect to Prana device"
+            "connect": "Unable to connect to Prana device ( error.connect )"
         },
         "abort": {
             "cannot_validate": "Unable to validate Prana device",

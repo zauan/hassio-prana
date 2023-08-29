@@ -173,7 +173,7 @@ class BLEDOMFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         if not self._instance:
             self._instance = PranaCoordinator(self.mac, self.hass)
         try:
-            await self._instance.update()
+            await self._instance._async_update_data()
             if self._instance.is_on:
                 await self._instance.turn_off()
                 await asyncio.sleep(2)
